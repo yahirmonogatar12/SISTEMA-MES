@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Ilsan Electronics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" class="logo">
+            <h1>ILSAN ELECTRONICS</h1>
+        </div>
+        <span>Welcome, 김병찬</span>
+    </header>
+
+    <nav>
+        <button>Información básica</button>
+        <button>Control de material</button>
+        <button>Control de producción</button>
+        <button>Control de proceso</button>
+        <button>Control de calidad</button>
+        <button>Control de resultados</button>
+        <button>Control de reporte</button>
+        <button>Configuración de programa</button>
+    </nav>
+
+    <div class="container">
+        <aside>
+            <h3>Administración de datos</h3>
+            <ul>
+                <li>Administración de usuario</li>
+                <li>Administración de menú</li>
+                <li>Control de lista de código</li>
+            </ul>
+            <h3>Control de proceso</h3>
+            <ul>
+                <li>Control de departamento</li>
+                <li>Control de orden de proceso</li>
+                <li>Control de defecto por proceso</li>
+            </ul>
+            <h3>Control de producción</h3>
+            <ul>
+                <li>Control de modelos</li>
+                <li>Control de máquina en línea</li>
+            </ul>
+            <h3>Control de cliente</h3>
+            <ul>
+                <li>Control de cliente</li>
+                <li>Control de proveedor</li>
+            </ul>
+        </aside>
+
+        <main>
+            <div class="actions">
+                <select>
+                    <option>Cod. de Menu: ALL</option>
+                </select>
+                <select>
+                    <option>Nom. de grupo: ALL</option>
+                </select>
+                <button class="consultar">Consultar</button>
+                <button class="excel">Exportar el Excel</button>
+                <button class="excel">Importar el Excel</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Código de grupo</th>
+                        <th>Nombre de Menú</th>
+                        <th>Nombre de grupo</th>
+                        <th>Nombre de código</th>
+                        <th>Coreano</th>
+                        <th>Inglés</th>
+                        <th>Español</th>
+                        <th>Modificador</th>
+                        <th>Registrador</th>
+                        <th>Fecha modif.</th>
+                        <th>Fecha registro</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="no-data" colspan="11">No hay dato registrado</td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </div>
+</body>
+</html>
