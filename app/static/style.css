@@ -1,3 +1,8 @@
+/* Global font */
+html, body, * {
+    font-family: 'LG Regular', 'LGRegular', Arial, sans-serif !important;
+}
+
 /* Bootstrap accordion custom for sidebar */
 .accordion {
     background: transparent;
@@ -249,4 +254,104 @@ th {
     padding: 40px;
     font-style: italic;
     color: #aaaaaa;
+}
+
+/* Modern sidebar styling */
+.sidebar-modern {
+    width: 270px;
+    min-height: 100vh;
+    background: #181c22;
+    color: #e0e0e0;
+    border-right: 1px solid #23272f;
+    padding: 0;
+    font-family: 'LG Regular', 'LGRegular', Arial, sans-serif !important;
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-section {
+    margin-bottom: 0;
+}
+
+.sidebar-dropdown-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    color: inherit;
+    text-align: left;
+    padding: 16px 24px 16px 18px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+    position: relative;
+}
+
+.sidebar-dropdown-btn.active,
+.sidebar-dropdown-btn:focus,
+.sidebar-dropdown-btn:hover {
+    background: #23272f;
+    color: #02865a;
+}
+
+.sidebar-icon {
+    font-size: 1.3rem;
+    color: #02865a;
+    margin-right: 6px;
+}
+
+.sidebar-caret {
+    margin-left: auto;
+    font-size: 1.1rem;
+    color: #888;
+}
+
+.sidebar-caret i {
+    transition: transform 0.2s;
+}
+
+.sidebar-caret i.rotate {
+    transform: rotate(180deg);
+}
+
+.sidebar-dropdown-list {
+    background: #20242b;
+    padding-left: 0;
+    border-left: 2px solid #02865a;
+    margin-bottom: 0;
+}
+
+.sidebar-link {
+    padding: 12px 36px;
+    color: #e0e0e0;
+    cursor: pointer;
+    font-size: 1rem;
+    border: none;
+    background: none;
+    transition: background 0.18s, color 0.18s;
+}
+
+.sidebar-link.active,
+.sidebar-link:hover {
+    background: #23272f;
+    color: #02865a;
+}
+
+@media (max-width: 900px) {
+    .sidebar-modern {
+        width: 100vw;
+        min-height: unset;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        height: 100vh;
+        overflow-y: auto;
+    }
 }

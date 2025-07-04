@@ -9,12 +9,6 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-    <style>
-        html, body, * {
-            font-family: 'LG Regular', 'LGRegular', Arial, sans-serif !important;
-        }
-    </style>
     <header>
         <div class="header-flex">
             <div class="header-left">
@@ -126,57 +120,68 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+        // Girar flechas según estado del collapse
+    document.querySelectorAll('.collapse').forEach(col => {
+        col.addEventListener('shown.bs.collapse', function() {
+            this.previousElementSibling.querySelector('.sidebar-caret i').classList.add('rotate');
+        });
+        col.addEventListener('hidden.bs.collapse', function() {
+            this.previousElementSibling.querySelector('.sidebar-caret i').classList.remove('rotate');
+        });
+    });
+
+
     // Por defecto, mostrar sidebar y contenido de info
     document.querySelector('.nav-btn[data-btn="info"]').click();
 });
 </script>
 
     <div class="container" id="main-container">
-        <aside id="sidebar" style="aside;">
+        <aside id="sidebar">
             <nav class="sidebar-modern bg-dark text-light">
                 <ul class="sidebar-menu">
                     <li class="sidebar-section">
-                        <button class="sidebar-dropdown-btn active" data-bs-toggle="collapse" data-bs-target="#sidebarDatos" aria-expanded="true">
+                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarDatos" aria-expanded="false">
                             <span class="sidebar-icon"><i class="bi bi-folder"></i></span>
                             Administración de datos
-                            <span class="sidebar-caret"></span>
+                            <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>
                         </button>
-                        <ul class="collapse show sidebar-dropdown-list" id="sidebarDatos">
+                        <ul class="collapse sidebar-dropdown-list" id="sidebarDatos">
                             <li class="sidebar-link" data-content="usuario">Administración de usuario</li>
                             <li class="sidebar-link" data-content="menu">Administración de menú</li>
                             <li class="sidebar-link" data-content="codigo">Control de lista de código</li>
                         </ul>
                     </li>
                     <li class="sidebar-section">
-                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarProceso" aria-expanded="true">
+                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarProceso" aria-expanded="false">
                             <span class="sidebar-icon"><i class="bi bi-gear"></i></span>
                             Control de proceso
-                            <span class="sidebar-caret"></span>
+                            <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>>
                         </button>
-                        <ul class="collapse show sidebar-dropdown-list" id="sidebarProceso">
+                        <ul class="collapse sidebar-dropdown-list" id="sidebarProceso">
                             <li class="sidebar-link">Control de departamento</li>
                             <li class="sidebar-link">Control de orden de proceso</li>
                             <li class="sidebar-link">Control de defecto por proceso</li>
                         </ul>
                     </li>
                     <li class="sidebar-section">
-                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarProduccion" aria-expanded="true">
+                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarProduccion" aria-expanded="false">
                             <span class="sidebar-icon"><i class="bi bi-cpu"></i></span>
                             Control de producción
-                            <span class="sidebar-caret"></span>
+                            <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>
                         </button>
-                        <ul class="collapse show sidebar-dropdown-list" id="sidebarProduccion">
+                        <ul class="collapse sidebar-dropdown-list" id="sidebarProduccion">
                             <li class="sidebar-link">Control de modelos</li>
                             <li class="sidebar-link">Control de máquina en línea</li>
                         </ul>
                     </li>
                     <li class="sidebar-section">
-                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarCliente" aria-expanded="true">
+                        <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebarCliente" aria-expanded="false">
                             <span class="sidebar-icon"><i class="bi bi-people"></i></span>
                             Control de cliente
-                            <span class="sidebar-caret"></span>
+                            <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>
                         </button>
-                        <ul class="collapse show sidebar-dropdown-list" id="sidebarCliente">
+                        <ul class="collapse sidebar-dropdown-list" id="sidebarCliente">
                             <li class="sidebar-link">Control de cliente</li>
                             <li class="sidebar-link">Control de proveedor</li>
                         </ul>
@@ -194,84 +199,6 @@ document.addEventListener('DOMContentLoaded', function() {
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
         <!-- Bootstrap JS (opcional, para componentes interactivos) -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qQ2iX+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <style>
-            .sidebar-modern {
-                width: 270px;
-                min-height: 100vh;
-                background: #181c22;
-                color: #e0e0e0;
-                border-right: 1px solid #23272f;
-                padding: 0;
-                font-family: 'LG Regular', 'LGRegular', Arial, sans-serif !important;
-            }
-            .sidebar-menu {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-            .sidebar-section {
-                margin-bottom: 0;
-            }
-            .sidebar-dropdown-btn {
-                width: 100%;
-                background: none;
-                border: none;
-                color: inherit;
-                text-align: left;
-                padding: 16px 24px 16px 18px;
-                font-size: 1.08rem;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                transition: background 0.2s;
-                position: relative;
-            }
-            .sidebar-dropdown-btn.active, .sidebar-dropdown-btn:focus, .sidebar-dropdown-btn:hover {
-                background: #23272f;
-                color: #00e676;
-            }
-            .sidebar-icon {
-                font-size: 1.3rem;
-                color: #00e676;
-                margin-right: 6px;
-            }
-            .sidebar-caret {
-                margin-left: auto;
-                font-size: 1.1rem;
-                color: #888;
-            }
-            .sidebar-dropdown-list {
-                background: #20242b;
-                padding-left: 0;
-                border-left: 2px solid #00e676;
-                margin-bottom: 0;
-            }
-            .sidebar-link {
-                padding: 12px 36px;
-                color: #e0e0e0;
-                cursor: pointer;
-                font-size: 1rem;
-                border: none;
-                background: none;
-                transition: background 0.18s, color 0.18s;
-            }
-            .sidebar-link.active, .sidebar-link:hover {
-                background: #23272f;
-                color: #00e676;
-            }
-            @media (max-width: 900px) {
-                .sidebar-modern {
-                    width: 100vw;
-                    min-height: unset;
-                    position: fixed;
-                    z-index: 1000;
-                    left: 0;
-                    top: 0;
-                    height: 100vh;
-                    overflow-y: auto;
-                }
-            }
-        </style>
+
     </body>
     </html>
