@@ -399,6 +399,7 @@
             .app-content {
                 padding: 15px;
             }
+            
         
 
     </style>
@@ -462,9 +463,9 @@
                             </button>
                             <ul class="collapse sidebar-dropdown-list" id="sidebarEntradas">
                                 <li class="sidebar-link">Entrada de Aéreo</li>
-                                <li class="sidebar-link">Entrada de contenedor</li>
+                                <li class="sidebar-link">Entrada de Contenedor</li>
                                 <li class="sidebar-link">Entrada de LG</li>
-                                <li class="sidebar-link">Entrada de Proveedores</li>
+                                <li class="sidebar-link">Entrada de Local Suppliers</li>
                             </ul>
                         </li>
                         <li>
@@ -540,7 +541,7 @@
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
             const entradaTemplate = `
                 <div id="material" class="tab-pane_active">
-                  <h2>Control de material de almacén</h2>
+                  <h2>Entrada de Aéreo</h2>
                   <div class="form-container">
                     <div class="form-row">
                       <div class="form-group">
@@ -603,10 +604,10 @@
                   </div>
 
                   <div class="action-buttons">
-                    <button class="btn-consultar">Guardar</button>
-                    <button class="btn-consultar">Imprimir</button>
-                    <button class="btn-consultar">Consultar</button>
-                    <button class="btn-excel">Exportar a Excel</button>
+                    <button type="button" class="btn btn-secondary">Guardar</button>
+                    <button type="button" class="btn btn-secondary">Imprimir</button>
+                    <button type="button" class="btn btn-secondary">Consultar</button>
+                    <button type="button" class="btn btn-success">Exportar a Excel</button>
                   </div>
 
                   <table class="data-table">
