@@ -47,23 +47,28 @@
         .logo-container {
             display: flex;
             align-items: center;
+            flex-direction: column;
             flex-shrink: 0;
             font-size: 8;
+            border-radius: lightgray;
+            margin-top: -25px;
 
         }
         
         .logo {
-            height: 40px;
+            height: 30px;
+            margin-top: 30px;
         }
         
         .welcome {
-            margin-left: 20px;
-            font-weight: 500;
-            font-size: 1.1rem;
+            margin-top: -20px;
+            margin-left: 0px;
+            font-weight: 400;
+            font-size: 12px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            max-width: 200px;
+            max-width: 500px;
         }
         
         .nav-tabs-container {
@@ -117,7 +122,7 @@
         /* Sidebar Styles */
         .app-sidebar {
             width: var(--sidebar-width);
-            background-color: var(--primary-color);
+            background-color: #23242a;
             color: var(--text-light);
             overflow-y: auto;
             transition: all 0.3s ease;
@@ -195,7 +200,7 @@
             flex: 1;
             overflow-y: auto;
             padding: 20px;
-            background-color: #f8f9fa;
+            background-color: #28292d;
             transition: margin-left 0.3s;
         }
         
@@ -261,7 +266,30 @@
         .btn-excel:hover {
             background-color: #219653;
         }
-        
+        /* Form Layout */
+        .form-container {
+            margin-top: 20px;
+
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .form-group label {
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
         /* Mobile Toggle Button */
         .sidebar-toggle {
             display: none;
@@ -371,7 +399,8 @@
             .app-content {
                 padding: 15px;
             }
-        }
+        
+
     </style>
 </head>
 <body>
@@ -382,7 +411,7 @@
         
         <div class="logo-container">
             <img src="\\192.168.1.230\qa\ILSAN_MES\ISEMM_MES\app\static\logo.png" alt="Ilsan Electronics Logo" class="logo">
-            <span class="welcome">Bienvenido, Materiales01</span>
+            <br><div class="welcome">Bienvenido, Materiales01</div>
         </div>
         
         <div class="nav-tabs-container">
@@ -432,7 +461,7 @@
                                 <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>
                             </button>
                             <ul class="collapse sidebar-dropdown-list" id="sidebarEntradas">
-                                <li class="sidebar-link">Entrada de Areo</li>
+                                <li class="sidebar-link">Entrada de Aéreo</li>
                                 <li class="sidebar-link">Entrada de contenedor</li>
                                 <li class="sidebar-link">Entrada de LG</li>
                                 <li class="sidebar-link">Entrada de Proveedores</li>
@@ -448,14 +477,24 @@
                                 <li class="sidebar-link">Salida de material</li>
                             </ul>
                         </li>
-                        li>
+                        <li>
                             <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar">
-                                <span class="sidebar-icon"><i class="bi bi-box-arrow-up"></i></span>
-                                Salidas
+                                <span class="sidebar-icon"><i class="bi bi-arrow-return-left"></i></span>
+                                Retorno
                                 <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>
                             </button>
                             <ul class="collapse sidebar-dropdown-list" id="sidebarSalidas">
-                                <li class="sidebar-link">Salida de material</li>
+                                <li class="sidebar-link">Retorno de material</li>
+                            </ul>
+                        </li>
+                        <li>
+                            <button class="sidebar-dropdown-btn" data-bs-toggle="collapse" data-bs-target="#sidebar">
+                                <span class="sidebar-icon"><i class="bi bi-arrow-return-left"></i></span>
+                                PEPS
+                                <span class="sidebar-caret"><i class="bi bi-chevron-down"></i></span>
+                            </button>
+                            <ul class="collapse sidebar-dropdown-list" id="sidebarSalidas">
+                                <li class="sidebar-link">Consulta PEPS</li>
                             </ul>
                         </li>
                     </ul>
@@ -497,9 +536,99 @@
             });
             
             // Manejar el contenido dinámico
+            const mainContent = document.querySelector('.app-content');
             const sidebarLinks = document.querySelectorAll('.sidebar-link');
+            const entradaTemplate = `
+                <div id="material" class="tab-pane_active">
+                  <h2>Control de material de almacén</h2>
+                  <div class="form-container">
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="formaMaterial">Forma de material</label>
+                        <select id="formaMaterial">
+                          <option>OriginCode</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="cliente">Cliente</label>
+                        <select id="cliente">
+                          <option>Seleccionar</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="codigoMaterial">Código de material</label>
+                        <input id="codigoMaterial" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="fechaFab">Fecha fabricación</label>
+                        <input id="fechaFab" type="date">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="origenMaterial">Material importación/local</label>
+                        <select id="origenMaterial">
+                          <option>Customer Supply</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="cantidadActual">Cantidad actual</label>
+                        <input id="cantidadActual" type="number">
+                      </div>
+                      <div class="form-group">
+                        <label for="fechaRecibo">Fecha de recibo</label>
+                        <input id="fechaRecibo" type="date">
+                      </div>
+                      <div class="form-group">
+                        <label for="loteMaterial">No. lote material</label>
+                        <input id="loteMaterial" type="text">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label for="codRecibido">Código material recibido</label>
+                        <input id="codRecibido" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="numParte">Número de parte</label>
+                        <input id="numParte" type="text">
+                      </div>
+                      <div class="form-group">
+                        <label for="propiedad">Propiedad material</label>
+                        <input id="propiedad" type="text">
+                      </div>
+                      <div class="form-group">
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="action-buttons">
+                    <button class="btn-consultar">Guardar</button>
+                    <button class="btn-consultar">Imprimir</button>
+                    <button class="btn-consultar">Consultar</button>
+                    <button class="btn-excel">Exportar a Excel</button>
+                  </div>
+
+                  <table class="data-table">
+                    <thead>
+                      <tr>
+                        <th>Código material</th>
+                        <th>Número parte</th>
+                        <th>Fecha recibo</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="no-data">
+                        <td colspan="3">No hay datos registrados</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+            `;
+
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function() {
+                    mainContent.innerHTML = '';
                     // Cerrar sidebar en móviles al seleccionar un item
                     if (window.innerWidth < 768) {
                         sidebar.classList.remove('active');
@@ -508,7 +637,11 @@
                     
                     sidebarLinks.forEach(l => l.classList.remove('active'));
                     this.classList.add('active');
-                    // Aquí iría la lógica para cargar contenido dinámico
+                    if (this.closest('#sidebarEntradas') && this.textContent.trim() === 'Entrada de Aéreo') {
+                        mainContent.innerHTML = entradaTemplate;
+                    } else {
+                        mainContent.innerHTML = '';
+                    }
                 });
             });
             
@@ -517,6 +650,7 @@
             tabLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     // Mostrar/ocultar sidebar según la pestaña seleccionada
+                    mainContent.innerHTML = "";
                     if (this.getAttribute('href') === '#info') {
                         sidebar.style.display = 'block';
                     } else if (this.getAttribute('href') === '#material') {
