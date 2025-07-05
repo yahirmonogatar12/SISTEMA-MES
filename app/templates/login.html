@@ -6,9 +6,9 @@
     <title>ILSAN LGMES - Inicio de Sesión</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-	input {
-	    color: gray;
-	}
+        input {
+            color: gray;
+        }
         body {
             background-color: #23242a;
             min-height: 100vh;
@@ -83,12 +83,10 @@
             <div class="col-12 col-sm-10 col-md-8 col-lg-6 col-xl-4">
                 <div class="login-container">
                     <div class="logo">
-                        <!-- Usa una ruta relativa en lugar de absoluta para mejor portabilidad -->
-                        <img src="\\192.168.1.230\qa\B_LG\WebTools\standar\ImagenLogo1.png" alt="Logo ILSAN" class="img-fluid">
+                        <img src="\\192.168.1.230\qa\ILSAN_MES\ISEMM_MES\app\static\logo.png" alt="Logo ILSAN" class="img-fluid">
                         <h3 class="mt-2">ILSAN ELECTRONICS</h3>
                     </div>
-                    
-                    <form id="loginForm" action="/login" method="POST"> 
+                    <form id="loginForm">
                         <div class="mb-3">
                             <label for="username" class="form-label">Usuario</label>
                             <input type="text" class="form-control" id="username" name="username" required placeholder="Ingrese su usuario">
@@ -97,15 +95,7 @@
                             <label for="password" class="form-label">Contraseña</label>
                             <input type="password" class="form-control" id="password" name="password" required placeholder="Ingrese su contraseña">
                         </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="remember">
-                            <label class="form-check-label" for="remember">Recordar sesión</label>
-                        </div>
                         <button type="submit" class="btn btn-login mb-3">Iniciar Sesión</button>
-                        
-                        <div class="text-center">
-                            <a href="#forgot-password" class="forgot-password">¿Olvidaste tu contraseña?</a>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -113,35 +103,31 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validación básica
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            if(username.trim() === '' || password.trim() === '') {
-                alert('Por favor complete todos los campos');
-                return;
-            }
-            
-            // Simulación de envío (reemplazar con AJAX real)
-            console.log('Enviando credenciales...');
-            
-            // Simular carga
-            const btn = e.target.querySelector('button[type="submit"]');
-            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Verificando...';
-            btn.disabled = true;
-            
-            // Simular respuesta del servidor (eliminar en producción)
-            setTimeout(() => {
-                // window.location.href = 'dashboard.html'; // Redirección exitosa
-                btn.innerHTML = 'Iniciar Sesión';
-                btn.disabled = false;
-                alert('Credenciales enviadas (simulación)');
-            }, 1500);
-        });
-    </script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+
+    fetch('\\192.168.1.230\qa\ILSAN_MES\ISEMM_MES\app\php\login.php', {  // Apunta al nuevo endpoint PHP
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = data.redirect;
+        } else {
+            alert(data.message || "Credenciales incorrectas");
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Error al conectar con el servidor");
+    });
+});
+</script>
+
 </body>
 </html>
